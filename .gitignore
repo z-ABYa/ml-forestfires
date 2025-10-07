@@ -1,0 +1,23 @@
+# macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon must end with two \r characters
+Icon
+
+# Thumbnails
+._*
+
+# Files that might appear when a volume is mounted
+.Spotlight-V100
+.Trashes
+.VolumeIcon.icns
+.fseventsd
+
+# macOS metadata files
+.com.apple.timemachine.donotpresent
+.metadata_never_index
+.apdisk
+
+__pycache__/
