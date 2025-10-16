@@ -1,26 +1,133 @@
-<html>
-<body>
-    <div class="login">
-       <h1>FWI Prediction</h1>
-   
-        <!-- Main Input For Receiving Query to our ML -->
-       <form action="{{ url_for('predict_datapoint')}}" method="post">
-         <input type="text" name="Temperature" placeholder="Temperature" required="required" /><br>
-           <input type="text" name="RH" placeholder="RH" required="required" /><br>
-           <input type="text" name="Ws" placeholder="Ws" required="required" /><br>
-           <input type="text" name="Rain" placeholder="Rain" required="required" /><br>
-           <input type="text" name="FFMC" placeholder="FFMC" required="required" /><br>
-           <input type="text" name="DMC" placeholder="DMC" required="required" /><br>
-           <input type="text" name="ISI" placeholder="ISI" required="required" /><br>
-           <input type="text" name="Classes" placeholder="Classes" required="required" /><br>
-           <input type="text" name="Region" placeholder="Region" required="required" /><br>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Forest Fire Predictor</title>
 
-           <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
-       </form>
-    <h2>
-        
-            THE FWI prediction is {{results}}
-        
-    </h2>
-   <body>
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-color: #0d0d0d;
+      --card-bg: #1a1a1a;
+      --accent: #edff64;
+      --text-color: #e0e0e0;
+      --input-bg: #2b2b2b;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(circle at top left, #007eaf, #2c2d2e);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+      color: var(--text-color);
+    }
+
+    .container {
+      background: var(--card-bg);
+      padding: 2rem 2.5rem;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(28, 28, 28, 0.3);
+      width: 100%;
+      max-width: 420px;
+      text-align: center;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    h1 {
+      color: var(--accent);
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+
+    input[type="number"] {
+      background: var(--input-bg);
+      color: var(--text-color);
+      padding: 0.8rem;
+      border: 1px solid #333;
+      border-radius: 10px;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    input[type="number"]:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 8px rgba(124, 77, 255, 0.3);
+    }
+
+    button {
+      background: var(--accent);
+      color: #000000;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border: none;
+      padding: 0.8rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    button:hover {
+      background: #fffa5b;
+      transform: translateY(-2px);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 1.5rem;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Forest Fire Predictor</h1>
+
+    <form action="{{ url_for('predict_datapoint') }}" method="post">
+      <input type="number" name="Temperature" placeholder="Temperature (°C)" step="any" required />
+      <input type="number" name="RH" placeholder="Relative Humidity (%)" step="any" required />
+      <input type="number" name="Ws" placeholder="Wind Speed (km/h)" step="any" required />
+      <input type="number" name="Rain" placeholder="Rainfall (mm)" step="any" required />
+      <input type="number" name="FFMC" placeholder="FFMC" step="any" required />
+      <input type="number" name="DMC" placeholder="DMC" step="any" required />
+      <input type="number" name="ISI" placeholder="ISI" step="any" required />
+      <input type="number" name="Classes" placeholder="Classes" step="any" required />
+      <input type="number" name="Region" placeholder="Region" step="any" required />
+
+      <button type="submit">Predict</button>
+    </form>
+
+    {% if results %}
+    <h2>The FWI Prediction is: <strong>{{ results }}</strong></h2>
+    {% endif %}
+  </div>
+</body>
 </html>
